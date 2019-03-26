@@ -8,6 +8,25 @@ const printToDom = (divId, textToPrint) => {
     const selectedDiv = document.getElementById(divId);
     selectedDiv.innerHTML = textToPrint;
 };
+
+const deleteFunction = (e) =>{
+    const buttonId = e.target.id;
+    ingredients.forEach((ingredient, index) => {
+        if(ingredient.id === buttonId){
+            ingredients.splice(index, 1);
+        }
+    })
+    domStringBuilder(ingredients);
+    addDeleteEvents();
+}
+
+const addDeleteEvents = () =>{
+    const deleteButtons = document.getElementsByClassName('deleteButton');
+    for (let i = 0; i < deleteButtons.length; i ++){
+        deleteButtons[i].addEventListener('click', deleteFunction);
+    }
+};
+
 const domStringBuilder = (arrrayToPrint) => {
     let domString = '';
     arrrayToPrint.forEach((ingredient) => {
@@ -35,6 +54,7 @@ const addIngredient = (e) =>{
     ingredientCounter ++;
     
     domStringBuilder(ingredients);
+    addDeleteEvents();
     inputIngredient.value = '';
 }
 const eventListener = () => {
